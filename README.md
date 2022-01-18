@@ -20,18 +20,14 @@ A api-game-survey é uma aplicação full stack web que consiste em uma pesquisa
 - HTML / CSS / JS / TypeScript
 - ReactJS
 - React Native
-- Apex Charts
-- Expo
+
 ## Implantação em produção
 - Back end: Heroku
 - Front end web: Netlify
 - Banco de dados: Postgresql
 
 # Lógica:
-- Informar email, id do filme e valor da avaliação (1 a 5).
-- Recuperar usuário do banco de dados pelo email. Se o usuário não existir, insira no banco.
-- Salvar a avaliação do usuário para o dado filme.
-- Recalcular a avaliação média do filme e salvar no banco de dados.
+ 
 
 # Como executar o projeto
 
