@@ -1,5 +1,6 @@
 package me.wup.gamesurvey.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import me.wup.gamesurvey.domain.enums.PlataformEnum;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @EqualsAndHashCode
+@Builder
 @Entity
 @Table(name = "tb_game")
 public class Game implements Serializable {
@@ -28,10 +30,12 @@ public class Game implements Serializable {
     @Column(name = "platform")
     private PlataformEnum platform;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
     private List<Record> records = new ArrayList<>();
 }

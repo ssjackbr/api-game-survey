@@ -11,6 +11,7 @@ import java.time.Instant;
 @Setter
 @Getter
 @EqualsAndHashCode
+@Builder
 @Entity
 @Table(name = "tb_record")
 public class Record implements Serializable {

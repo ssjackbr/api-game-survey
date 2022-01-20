@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @EqualsAndHashCode
+@Builder
 @Entity
 @Table(name = "tb_genre")
 public class Genre implements Serializable {
