@@ -19,12 +19,10 @@ public class GameDto implements Serializable {
     private Long id;
     private String title;
     private PlataformEnum platform;
-    private Genre genre;
 
     public  GameDto (Game game) {
         id = game.getId();
         title = game.getTitle();
         platform = game.getPlatform();
-        genre = game.getGenre();
     }
 }
