@@ -9,6 +9,8 @@ import me.wup.gamesurvey.domain.entities.Record;
 import me.wup.gamesurvey.repositories.GameRepository;
 import me.wup.gamesurvey.repositories.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,19 +29,22 @@ public class RecordService {
     private GameRepository gameRepository;
 
     @Transactional
+    public Page<RecordDto> findAllRecords (Pageable pageable, Instant maxDate, Instant minDate){
+        return recordRepository.findAll(pageable,maxDate, minDate).map(x -> new RecordDto(x));
+    }
+
+    @Transactional
     public RecordDto saveGameSurvey(RecordInsertSurveyDto dto) {
         Record record = new Record();
         return new RecordDto(recordRepository.save(copyDtoToEntity(dto, record)));
     }
 
     public Record copyDtoToEntity (RecordInsertSurveyDto dto, Record record) {
-
+        Game game = gameRepository.getOne(dto.getGameId());
+        record.setGame(game);
         record.setName(dto.getName());
         record.setAge(dto.getAge());
         record.setMoment(Instant.now());
-
-        Game game = gameRepository.getOne(dto.getGameId());
-        record.setGame(game);
         return record;
     }
 }
