@@ -1,5 +1,6 @@
 package me.wup.gamesurvey.controllers;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import me.wup.gamesurvey.domain.dto.GameDto;
 import me.wup.gamesurvey.domain.dto.RecordDto;
 import me.wup.gamesurvey.domain.dto.RecordInsertSurveyDto;
@@ -32,8 +33,9 @@ public class RecordController {
 
         Instant minDate =  Instant.parse(min);
         Instant maxDate =  Instant.parse(max);
+        System.out.println("Data inicial: "+min+" - "+"Data final: "+max);
 
-        Page<RecordDto> list = recordService.findAllRecords(pageable);
+        Page<RecordDto> list = recordService.findAllRecords(pageable, minDate, maxDate);
         return ResponseEntity.ok().body(list);
     }
 }

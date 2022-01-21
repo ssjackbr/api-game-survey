@@ -29,12 +29,9 @@ public class RecordService {
     private GameRepository gameRepository;
 
     @Transactional
-    public Page<RecordDto> findAllRecords (Pageable pageable){
-        Page<Record> recordList = recordRepository.findAll(pageable);
-        return recordList.map(x -> new RecordDto(x));
+    public Page<RecordDto> findAllRecords (Pageable pageable, Instant maxDate, Instant minDate){
+        return recordRepository.findAll(pageable,maxDate, minDate).map(x -> new RecordDto(x));
     }
-
-
 
     @Transactional
     public RecordDto saveGameSurvey(RecordInsertSurveyDto dto) {
