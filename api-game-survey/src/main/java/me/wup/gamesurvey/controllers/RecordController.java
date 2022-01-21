@@ -9,6 +9,7 @@ import me.wup.gamesurvey.services.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,6 @@ public class RecordController {
 
         Instant minDate =  Instant.parse(min);
         Instant maxDate =  Instant.parse(max);
-        System.out.println("Data inicial: "+min+" - "+"Data final: "+max);
 
         Page<RecordDto> list = recordService.findAllRecords(pageable, minDate, maxDate);
         return ResponseEntity.ok().body(list);
