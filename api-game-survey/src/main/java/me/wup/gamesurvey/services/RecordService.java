@@ -1,7 +1,6 @@
 package me.wup.gamesurvey.services;
 
 import lombok.Builder;
-import me.wup.gamesurvey.domain.dto.GameDto;
 import me.wup.gamesurvey.domain.dto.RecordDto;
 import me.wup.gamesurvey.domain.dto.RecordInsertSurveyDto;
 import me.wup.gamesurvey.domain.entities.Game;
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Builder
 @Service
@@ -29,22 +26,30 @@ public class RecordService {
     private GameRepository gameRepository;
 
     @Transactional
-    public Page<RecordDto> findAllRecords (Pageable pageable, Instant maxDate, Instant minDate){
-        return recordRepository.findAll(pageable,maxDate, minDate).map(x -> new RecordDto(x));
-    }
+    public Page<RecordDto> findAllRecords(Pageable pageable, String minDate, String maxDate) {
 
-    @Transactional
-    public RecordDto saveGameSurvey(RecordInsertSurveyDto dto) {
-        Record record = new Record();
-        return new RecordDto(recordRepository.save(copyDtoToEntity(dto, record)));
-    }
+            if (minDate == null || maxDate == null) {
+                return recordRepository.findAllPageable(pageable).map(x -> new RecordDto(x));
+            }
+            else {
+                Instant min = ("".equals(minDate)) ? null : Instant.parse(minDate);
+                Instant max = ("".equals(maxDate)) ? null : Instant.parse(maxDate);
+                return recordRepository.findAll(pageable, min, max).map(x -> new RecordDto(x));
+            }
+        }
 
-    public Record copyDtoToEntity (RecordInsertSurveyDto dto, Record record) {
-        Game game = gameRepository.getOne(dto.getGameId());
-        record.setGame(game);
-        record.setName(dto.getName());
-        record.setAge(dto.getAge());
-        record.setMoment(Instant.now());
-        return record;
+        @Transactional
+        public RecordDto saveGameSurvey (RecordInsertSurveyDto dto){
+            Record record = new Record();
+            return new RecordDto(recordRepository.save(copyDtoToEntity(dto, record)));
+        }
+
+        public Record copyDtoToEntity (RecordInsertSurveyDto dto, Record record){
+            Game game = gameRepository.getOne(dto.getGameId());
+            record.setGame(game);
+            record.setName(dto.getName());
+            record.setAge(dto.getAge());
+            record.setMoment(Instant.now());
+            return record;
+        }
     }
-}
