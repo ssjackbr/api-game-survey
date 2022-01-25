@@ -13,8 +13,8 @@ import java.time.Instant;
 public interface RecordRepository extends JpaRepository <Record, Long> {
 
     @Query("SELECT obj FROM Record obj WHERE "
-            + "(:min IS NULL OR obj.moment >= :min) AND "
-            + "(:max IS NULL OR obj.moment <= :max)")
+            + "(coalesce(:min, null) IS NULL OR obj.moment >= :min) AND "
+            + "(coalesce(:max, null) IS NULL OR obj.moment <= :max)")
     Page<Record> findAll(Pageable pageable, Instant min, Instant max);
 
     @Query("SELECT obj FROM Record obj")
