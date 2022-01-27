@@ -18,9 +18,15 @@
   .logo-text-2 {
     color: #FFF;
   }
+
+  .logo-text-3 {
+    color: #FFF;
+    margin-left: auto;
+  }
   
   @media (max-width: 850px) {
     .main-header {
       justify-content: center;
     }
+
   }
