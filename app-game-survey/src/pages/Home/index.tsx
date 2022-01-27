@@ -3,6 +3,7 @@ import './styles.css';
 import { ReactComponent as ArrowIcon } from '../../assets/arrow.svg';
 import { ReactComponent as GameImage } from '../../assets/gamer.svg';
 
+
 function Home() {
     return (
         <div className="home-container">
