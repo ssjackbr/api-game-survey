@@ -23,7 +23,7 @@ public class RecordController {
         return ResponseEntity.ok().body(newDto);
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping ()
     public ResponseEntity<Page<RecordDto>> findAll(Pageable pageable,
                                                    @RequestParam(value = "min", required = false) String min,
                                                    @RequestParam(value = "max", required = false) String max) {
