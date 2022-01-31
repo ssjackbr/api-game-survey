@@ -16,7 +16,6 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
-
     @PostMapping()
     public ResponseEntity<RecordDto> findAllGames(@RequestBody RecordInsertSurveyDto dto) {
         RecordDto newDto = recordService.saveGameSurvey(dto);
