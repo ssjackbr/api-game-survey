@@ -5,9 +5,7 @@ import { RecordsResponse } from "./types";
 import { formatDate } from './helpers';
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
-
-
-const BASE_URL = 'http://localhost:8080'
+import { BASE_URL } from "../../utils/requests";
 
 function Records() {
 
